@@ -1,1 +1,0 @@
-# house_renting_frontend
