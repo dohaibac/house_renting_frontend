@@ -3,7 +3,8 @@ class HousesController < ApplicationController
 
   # GET /houses
   def index
-    @houses = House.get_all
+    @houses_obj = House.new
+    @houses = @houses_obj.get_all
   end
 
   # GET /houses/1
@@ -20,11 +21,13 @@ class HousesController < ApplicationController
   end
 
   # POST /houses
+  # FAKE: current user = 1
   def create
-    @house = House.new(house_params)
+    ho = House.new
+    @house = ho.create_house(params[:house][:address], params[:house][:province],params[:house][:description],"1",params[:house][:renting_price])
 
-    if @house.save
-      redirect_to @house, notice: 'House was successfully created.'
+    if @house
+      redirect_to root_path, notice: 'House was successfully created.'
     else
       render :new
     end
@@ -43,6 +46,10 @@ class HousesController < ApplicationController
   def destroy
     @house.destroy
     redirect_to houses_url, notice: 'House was successfully destroyed.'
+  end
+
+  def delete_house(house_id)
+
   end
 
   private
