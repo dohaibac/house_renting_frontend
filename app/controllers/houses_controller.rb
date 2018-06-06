@@ -7,10 +7,6 @@ class HousesController < ApplicationController
     @houses = @houses_obj.get_all
   end
 
-  # GET /houses/1
-  def show
-  end
-
   # GET /houses/new
   def new
     @house = House.new
@@ -27,16 +23,19 @@ class HousesController < ApplicationController
     @house = ho.create_house(params[:house][:address], params[:house][:province],params[:house][:description],"1",params[:house][:renting_price])
 
     if @house
-      redirect_to root_path, notice: 'House was successfully created.'
+      redirect_to house_path, notice: 'House was successfully created.'
     else
       render :new
     end
   end
 
   # PATCH/PUT /houses/1
-  def update
-    if @house.update(house_params)
-      redirect_to @house, notice: 'House was successfully updated.'
+  def update_house
+    ho = House.new
+    @house = ho.update_house(params[:house][:id], params[:house][:address], params[:house][:province],params[:house][:description],"1",params[:house][:renting_price],params[:house][:house_status])
+
+    if @house
+      redirect_to houses_path, notice: 'House was successfully updated.'
     else
       render :edit
     end
@@ -44,18 +43,16 @@ class HousesController < ApplicationController
 
   # DELETE /houses/1
   def destroy
-    @house.destroy
+    ho = House.new
+    @house = ho.delete_house(params[:id])
     redirect_to houses_url, notice: 'House was successfully destroyed.'
-  end
-
-  def delete_house(house_id)
-
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_house
-      @house = House.find(params[:id])
+      @houses_obj = House.new
+      @house = @houses_obj.get_house(params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

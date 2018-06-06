@@ -2,7 +2,7 @@
 
 <h1>Houses</h1>
 
-<table class="table table-bordered table-hover">
+<table class="table-bordered table-hover">
   <thead>
     <tr class="active">
       <th>Address</th>
@@ -10,7 +10,7 @@
       <th>Description</th>
       <th>House owner</th>
       <th>Renting price</th>
-      <th></th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -23,6 +23,7 @@
         <td><%= house["house_owner"] %></td>
         <td><%= house["renting_price"] %></td>
         <td><%= link_to 'Edit', edit_house_path(house["id"]) %></td>
+        <td><%= link_to 'Destroy', house_path(house["id"]),method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

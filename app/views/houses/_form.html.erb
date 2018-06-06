@@ -1,42 +1,33 @@
-<%= form_with(model: house, local: true) do |form| %>
-  <% if house.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(house.errors.count, "error") %> prohibited this house from being saved:</h2>
-
-      <ul>
-      <% house.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<form action="<%=update_house_path%>" mothod="post">
+  <input name="house[id]" type="hidden" value="<%=@house["id"]%>"/>
   <div class="field">
-    <%= form.label :address %>
-    <%= form.text_field :address %>
+    <div class="col-md-3">Address</div>
+    <div class="col-md-8"><input name="house[address]" type="text" value="<%=@house["address"]%>"/></div>
   </div>
 
   <div class="field">
-    <%= form.label :province %>
-    <%= form.text_field :province %>
+    <div class="col-md-3">Province</div>
+    <div class="col-md-8"><input name="house[province]" type="text" value="<%=@house["province"]%>"/></div>
   </div>
 
   <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
+    <div class="col-md-3">Description</div>
+    <div class="col-md-8"><textarea name="house[description]"><%=@house["description"]%> </textarea></div>
+  </div>
+  
+
+  <div class="field">
+    <div class="col-md-3">House status</div>
+    <div class="col-md-4"> available <input type="radio" name="house[status]" value="available" <% if @house["status"] == "available" %>checked <% end %>> </div> <div class="col-md-4"> unavailable <input type="radio" name="house[status]" value="unavailable" <% if @house["status"] != "available" %>checked <% end %>></div>
   </div>
 
   <div class="field">
-    <%= form.label :house_status %>
-    <%= form.text_field :house_status %>
+    <div class="col-md-3">Renting Price</div>
+    <div class="col-md-8"><input name="house[address]" type="text" value="<%=@house["renting_price"]%>"/></div>
   </div>
 
-  <div class="field">
-    <%= form.label :renting_price %>
-    <%= form.number_field :renting_price %>
-  </div>
-
+  
   <div class="actions">
-    <%= form.submit %>
+    <input type="submit" value="Submit">
   </div>
-<% end %>
+</form>
