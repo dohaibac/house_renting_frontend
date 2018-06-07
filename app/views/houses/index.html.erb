@@ -10,19 +10,17 @@
       <th>Description</th>
       <th>House owner</th>
       <th>Renting price</th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @houses.each do |house| %>
       <tr>
-        <td><%= link_to house["address"], house %></td>
+        <td><%= link_to house["address"], edit_house_path(house["id"]) %></td>
         <td><%= house["province"] %></td>
         <td><%= house["description"] %></td>
         <td><%= house["house_owner"] %></td>
         <td><%= house["renting_price"] %></td>
-        <td><%= link_to 'Edit', edit_house_path(house["id"]) %></td>
       </tr>
     <% end %>
   </tbody>

@@ -1,33 +1,32 @@
-<form action="<%=update_house_path%>" mothod="post">
+<form action="<%=update_house_path%>" mothod="post" class="form">
   <input name="house[id]" type="hidden" value="<%=@house["id"]%>"/>
-  <div class="field">
-    <div class="col-md-3">Address</div>
-    <div class="col-md-8"><input name="house[address]" type="text" value="<%=@house["address"]%>"/></div>
+  <div class="form-group">
+    <div class="col-md-4">Address</div>
+    <div class="col-md-8"><input class="form-control" name="house[address]" type="text" value="<%=@house["address"]%>"/></div>
   </div>
 
-  <div class="field">
-    <div class="col-md-3">Province</div>
-    <div class="col-md-8"><input name="house[province]" type="text" value="<%=@house["province"]%>"/></div>
+  <div class="form-group">
+    <div class="col-md-4">Province</div>
+    <div class="col-md-8"><input class="form-control" name="house[province]" type="text" value="<%=@house["province"]%>"/></div>
   </div>
 
-  <div class="field">
-    <div class="col-md-3">Description</div>
-    <div class="col-md-8"><textarea name="house[description]"><%=@house["description"]%> </textarea></div>
+  <div class="form-group">
+    <div class="col-md-4">House status</div>
+    <div class="col-md-4"> available <input class="form-control" type="radio" name="house[house_status]" value="available" <% if @house["house_status"] == "available" %>checked <% end %>> </div> <div class="col-md-4"> unavailable <input class="form-control" type="radio" name="house[house_status]" value="unavailable" <% if @house["house_status"] != "available" %>checked <% end %>></div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-4">Renting Price</div>
+    <div class="col-md-8"><input class="form-control" name="house[renting_price]" type="text" value="<%=@house["renting_price"]%>"/></div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-4">Description</div>
+    <div class="col-md-8"><textarea class="form-control" name="house[description]"><%=@house["description"]%> </textarea></div>
   </div>
   
-
-  <div class="field">
-    <div class="col-md-3">House status</div>
-    <div class="col-md-4"> available <input type="radio" name="house[status]" value="available" <% if @house["status"] == "available" %>checked <% end %>> </div> <div class="col-md-4"> unavailable <input type="radio" name="house[status]" value="unavailable" <% if @house["status"] != "available" %>checked <% end %>></div>
-  </div>
-
-  <div class="field">
-    <div class="col-md-3">Renting Price</div>
-    <div class="col-md-8"><input name="house[address]" type="text" value="<%=@house["renting_price"]%>"/></div>
-  </div>
-
   
   <div class="actions">
-    <input type="submit" value="Submit">
+    <input type="submit" value="Submit" class="btn btn-primary">
   </div>
 </form>

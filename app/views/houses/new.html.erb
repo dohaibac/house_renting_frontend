@@ -1,5 +1,37 @@
 <h1>New House</h1>
 
-<%= render 'form', house: @house %>
+<%= form_for(@house, html: { class: "form-horizontal", role: "form" }) do |f| %>
+  
+  <div class="form-group">
+    <%= f.label :address, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :address, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :Province, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :province, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :renting_price, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :renting_price, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
 
 <%= link_to 'Back', houses_path %>

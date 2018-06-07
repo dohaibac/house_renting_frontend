@@ -23,7 +23,7 @@ class HousesController < ApplicationController
     @house = ho.create_house(params[:house][:address], params[:house][:province],params[:house][:description],"1",params[:house][:renting_price])
 
     if @house
-      redirect_to house_path, notice: 'House was successfully created.'
+      redirect_to houses_path, notice: 'House was successfully created.'
     else
       render :new
     end
