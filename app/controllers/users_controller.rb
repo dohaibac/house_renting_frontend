@@ -16,10 +16,11 @@ class UsersController < ApplicationController
 
   # POST /users
   def create
-    @user = User.new(user_params)
+    user = User.new
+    @user = user.create_user(params[:user][:email], params[:user][:password],params[:user][:password_confirmation],params[:user][:user_type],params[:user][:display_name])
 
-    if @user.save
-      redirect_to @user, notice: 'User was successfully created.'
+    if @user
+      redirect_to houses_path, notice: 'User was successfully created.'
     else
       render :new
     end

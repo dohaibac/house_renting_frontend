@@ -27,6 +27,8 @@
   
   
   <div class="actions">
-    <input type="submit" value="Submit" class="btn btn-primary">
+    <input type="submit" value="Submit" class="btn btn-primary"> | 
+
+    <%= link_to 'Destroy', house_path(@house["id"]), class: 'btn btn-default', method: :delete, data: { confirm: 'Are you sure?' } %>
   </div>
 </form>
