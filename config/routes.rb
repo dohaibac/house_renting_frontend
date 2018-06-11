@@ -8,6 +8,10 @@ Rails.application.routes.draw do
   match 'login' => 'session#login', :as => :login, :via => :get
   match 'logout' => 'session#logout', :as => :logout, :via => :get
 
+  match 'login' => 'session#create', :as => :sign_in, :via => :post
+
   match 'update_house' => 'houses#update_house', :as => :update_house, :via => :get
   match 'delete_house' => 'houses#destroy_house', :as => :delete_house, :via => :get
+  match 'search_house' => 'houses#search_house', :as => :search_house, :via => :post
+
 end

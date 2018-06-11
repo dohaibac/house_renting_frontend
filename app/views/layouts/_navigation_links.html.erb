@@ -1,20 +1,28 @@
 <%# add navigation links to this file %>
 
-<li class="nav-item active">
+<li class="nav-item">
   <%= link_to 'Home', root_path, class: 'navbar-brand' %>
 </li>
 <li class="nav-item">
   <%= link_to 'List Houses', root_path, class: 'navbar-brand' %>
 </li>
-<li class="nav-item">
-  <%= link_to 'Register', new_user_path, class: 'navbar-brand' %>
-</li>
-<li class="nav-item">
-  <%= link_to 'Log in', login_path, class: 'navbar-brand' %>
-</li>
-<li class="nav-item">
-  <%= link_to 'Your Profile', user_path(1), class: 'navbar-brand' %>
-</li>
-<li class="nav-item">
-  <%= link_to 'Log out', logout_path, class: 'navbar-brand' %>
-</li>
+<% if session[:user_id] %>
+	<li class="nav-item">
+		<% if session[:current_user]["display_name"] then 
+			  @display_name = session[:current_user]["display_name"]
+    else
+        @display_name = session[:current_user]["email"]
+    end %>
+	  <%= link_to @display_name, user_path(session[:user_id]), class: 'navbar-brand' %>
+	</li>
+	<li class="nav-item">
+	  <%= link_to 'Log out', logout_path, class: 'navbar-brand' %>
+	</li>
+<% else %>
+	<li class="nav-item">
+		<%= link_to 'Register', new_user_path, class: 'navbar-brand' %>
+	</li>
+	<li class="nav-item">
+		<%= link_to 'Log in', login_path, class: 'navbar-brand' %>
+	</li>
+<% end %>

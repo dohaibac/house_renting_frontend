@@ -10,7 +10,9 @@
       <th>Description</th>
       <th>House owner</th>
       <th>Renting price</th>
-      <th></th>
+      <% if session[:current_user] then %>
+        <th></th>
+      <% end %>
     </tr>
   </thead>
 
@@ -20,9 +22,23 @@
         <td><%= house["address"] %></td>
         <td><%= house["province"] %></td>
         <td><%= house["description"] %></td>
-        <td><%= house["house_owner"] %></td>
+        <% if house["user"]["display_name"] then 
+          user_name = house["user"]["display_name"]
+        else
+          user_name = house["user"]["email"]
+        end %>
+        <td><%= user_name %></td>
         <td><%= house["renting_price"] %></td>
-        <td><%= link_to 'Edit', edit_house_path(house["id"]) %></td>
+        <% if session[:current_user] then %>
+        <td>
+        <% if session[:current_user]["user_type"] == "owner" then %>
+          <%= link_to 'Edit', edit_house_path(house["id"]) %>
+        <% end %>
+        <% if session[:current_user]["user_type"] != "owner" then %>
+          <%= link_to 'Rent this house', new_contract_path + "?house_id=" + house["id"].to_s %>
+        <% end %>
+        </td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +46,6 @@
 
 <br>
 
-<%= link_to 'New House', new_house_path %>
+<% if session[:user_id] && session[:current_user]["user_type"] == "owner" %>
+  <%= link_to 'New House', new_house_path %>
+<% end %>

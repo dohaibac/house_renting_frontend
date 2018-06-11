@@ -6,8 +6,18 @@ class House < ApplicationRecord
 		return houses
 	end
 
+	def get_house_owner(owner_id)
+		houses = JSON.load(RestClient.get(ENV["BACK_END_URL"] + "/houses?owner_id=" + owner_id.to_s))
+		return houses
+	end
+
 	def get_house (id)
 		houses = JSON.load(RestClient.get(ENV["BACK_END_URL"] + "/houses/" + id))
+		return houses
+	end
+
+	def search_house(search)
+		houses = JSON.load(RestClient.get(ENV["BACK_END_URL"] + "/houses/?search=" + search))
 		return houses
 	end
 

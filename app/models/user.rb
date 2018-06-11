@@ -2,7 +2,7 @@ require 'rest-client'
 
 class User < ApplicationRecord
 	def get_user (id)
-		users = JSON.load(RestClient.get(ENV["BACK_END_URL"] + "/users/" + id))
+		users = JSON.load(RestClient.get(ENV["BACK_END_URL"] + "/user/" + id.to_s))
 		return users
 	end
 
@@ -16,6 +16,12 @@ class User < ApplicationRecord
 	def update_user(id, password, display_name)
 
     user = RestClient.put( (ENV["BACK_END_URL"] + "/user/" + id),  { :user => { :password => password, :display_name => display_name }}, {content_type: :json, accept: :json})
+
+		return user
+	end
+
+	def signin(email, password)
+		user = JSON.load(RestClient.post( (ENV["BACK_END_URL"] + "/session"),  { :email => email, :password => password }, {content_type: :json, accept: :json}))
 
 		return user
 	end

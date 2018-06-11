@@ -4,7 +4,11 @@ class HousesController < ApplicationController
   # GET /houses
   def index
     @houses_obj = House.new
-    @houses = @houses_obj.get_all
+    if session[:user_id] && session[:current_user]["user_type"] == "owner" then
+      @houses = @houses_obj.get_house_owner(session[:user_id])
+    else
+      @houses = @houses_obj.get_all
+    end
   end
 
   # GET /houses/new
@@ -16,11 +20,20 @@ class HousesController < ApplicationController
   def edit
   end
 
+  #POST Search the list of houses
+  def search_house
+    ho = House.new
+    @houses = ho.search_house(params[:search])
+
+    if @houses
+      render :index
+    end
+  end
+  
   # POST /houses
-  # FAKE: current user = 1
   def create
     ho = House.new
-    @house = ho.create_house(params[:house][:address], params[:house][:province],params[:house][:description],"1",params[:house][:renting_price])
+    @house = ho.create_house(params[:house][:address], params[:house][:province],params[:house][:description],session[:user_id],params[:house][:renting_price])
 
     if @house
       redirect_to houses_path, notice: 'House was successfully created.'
