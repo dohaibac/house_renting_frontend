@@ -45,7 +45,7 @@ class HousesController < ApplicationController
   # PATCH/PUT /houses/1
   def update_house
     ho = House.new
-    @house = ho.update_house(params[:house][:id], params[:house][:address], params[:house][:province],params[:house][:description],"1",params[:house][:renting_price],params[:house][:house_status])
+    @house = ho.update_house(params[:house][:id], params[:house][:address], params[:house][:province],params[:house][:description],params[:house][:house_owner],params[:house][:renting_price],params[:house][:house_status])
 
     if @house
       redirect_to houses_path, notice: 'House was successfully updated.'
