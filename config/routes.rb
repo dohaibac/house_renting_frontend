@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root :to => "houses#index"
   match 'login' => 'session#login', :as => :login, :via => :get
+  match 'fblogin' => 'session#fblogin', :as => :fblogin, :via => :get
   match 'logout' => 'session#logout', :as => :logout, :via => :get
 
   match 'login' => 'session#create', :as => :sign_in, :via => :post

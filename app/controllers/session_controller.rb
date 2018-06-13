@@ -3,6 +3,18 @@ class SessionController < ApplicationController
 		@user = User.new
 	end
 
+  def fblogin
+    u = User.new
+    @user = u.fblogin(params[:uname], params[:email])
+
+    if @user
+      session[:user_id] = @user["user"]["id"]
+      session[:current_user] = @user["user"]
+    end
+
+    redirect_to houses_path, notice: 'Welcome to out Renting Application'
+  end
+
 	def logout
     session.delete(:user_id)
     session.delete(:current_user)

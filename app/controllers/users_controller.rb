@@ -23,6 +23,9 @@ class UsersController < ApplicationController
     @user = user.create_user(params[:user][:email], params[:user][:password], params[:user][:password_confirmation], params[:user][:user_type], params[:user][:display_name])
 
     if @user
+      session[:user_id] = @user["user"]["id"]
+      session[:current_user] = @user["user"]
+      
       redirect_to houses_path, notice: 'User was successfully created.'
     else
       render :new
