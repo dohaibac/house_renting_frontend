@@ -91,4 +91,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  ENV["BACK_END_URL"] = "https://cryptic-plains-55697.herokuapp.com"
 end

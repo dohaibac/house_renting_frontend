@@ -1,4 +1,4 @@
-require 'rest-client'
+#require 'rest-client'
 
 class House < ApplicationRecord
 	def get_all

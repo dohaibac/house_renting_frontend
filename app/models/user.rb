@@ -1,4 +1,4 @@
-require 'rest-client'
+#require 'rest-client'
 
 class User < ApplicationRecord
 	def get_user (id)
