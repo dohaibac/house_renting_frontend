@@ -1,44 +1,46 @@
 
-<h1>Houses</h1>
-
 <table class="table table-bordered table-hover">
-  <thead>
-    <tr class="active">
-      <th>Address</th>
-      <th>Province</th>
-      <th>Description</th>
-      <th>House owner</th>
-      <th>Renting price</th>
-      <% if session[:current_user] then %>
-        <th></th>
-      <% end %>
-    </tr>
-  </thead>
-
   <tbody>
-    <% @houses.each do |house| %>
+    <% @houses.each do |house|
+       if house["user"]["display_name"] then 
+            user_name = house["user"]["display_name"]
+          else
+            user_name = house["user"]["email"]
+          end 
+     %>
       <tr>
-        <td><%= house["address"] %></td>
-        <td><%= house["province"] %></td>
-        <td><%= house["description"] %></td>
-        <% if house["user"]["display_name"] then 
-          user_name = house["user"]["display_name"]
-        else
-          user_name = house["user"]["email"]
-        end %>
-        <td><%= user_name %></td>
-        <td><%= house["renting_price"] %></td>
-        <% if session[:current_user] then %>
         <td>
-        <% if session[:current_user]["user_type"] == "owner" then %>
-          <%= link_to 'Edit', edit_house_path(house["id"]) %>
-        <% end %>
-        <% if session[:current_user]["user_type"] != "owner" then %>
-          <%= link_to 'Rent this house', "mailto:" + house["user"]["email"] %>
-        <% end %>
+        <%= house["address"] %>
+          <table class="table">
+            <tr>
+              <td><img src="/house.png" width="500px;"></td>
+              <td>
+                <table class="table">
+                  <tr><td>Province</td><td><%= house["province"] %></td></tr>
+                  <tr><td>House owner</td><td><%= user_name %></td></tr>
+                  <tr><td>Price</td><td><%= house["renting_price"] %></td></tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <% if session[:current_user] then %>
+                  <% if session[:current_user]["user_type"] == "owner" then %>
+                    <%= link_to 'Edit', edit_house_path(house["id"], class: 'btn btn-default') %>
+                  <% end %>
+                  <% if session[:current_user]["user_type"] != "owner" then %>
+                    <%= link_to 'Rent this house', "mailto:" + house["user"]["email"], class: 'btn btn-primary' %>
+                  <% end %>
+                <% end %>
+              </td>
+              <td><%= house["description"] %></td>
+            </tr>
+          </table>
+          
         </td>
-        <% end %>
       </tr>
+
+
     <% end %>
   </tbody>
 </table>
