@@ -71,5 +71,5 @@ group :development do
 end
 
 gem 'jquery-rails', '~> 4.3', '>= 4.3.1'
-
+gem 'pg'
 gem 'rest-client'
