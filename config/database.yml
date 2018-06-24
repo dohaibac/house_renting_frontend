@@ -46,9 +46,18 @@ test:
 #
 # You can use this database configuration with:
 #
+#production:
+#  <<: *default
+#  url: <%= ENV['DATABASE_URL'] %>
+
 production:
-  <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  database: ruby-getting-started_production
+  username: ruby-getting-started
+  password: <%= ENV['RUBY-GETTING-STARTED_DATABASE_PASSWORD'] %>
+
 #
 #production:
 #  <<: *default
