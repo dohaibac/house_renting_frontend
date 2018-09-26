@@ -9,11 +9,19 @@ class HousesController < ApplicationController
     else
       @houses = @houses_obj.get_all
     end
+
+    if !@houses then
+      @houses = {}
+    end
   end
 
   # GET /houses/new
   def new
-    @house = House.new
+    if session[:user_id] && session[:current_user]["user_type"] == "owner" then
+      @house = House.new
+    else
+      redirect_to houses_path, notice: 'Please login as an Owner to create a new House' 
+    end
   end
 
   # GET /houses/1/edit
@@ -56,9 +64,13 @@ class HousesController < ApplicationController
 
   # DELETE /houses/1
   def destroy
-    ho = House.new
-    @house = ho.delete_house(params[:id])
-    redirect_to houses_url, notice: 'House was successfully destroyed.'
+    if session[:user_id] && session[:current_user]["user_type"] == "owner" then
+      ho = House.new
+      @house = ho.delete_house(params[:id])
+      redirect_to houses_url, notice: 'House was successfully destroyed.'
+    else
+      redirect_to houses_path, notice: 'You need loged in before destroy a house'
+    end
   end
 
   private

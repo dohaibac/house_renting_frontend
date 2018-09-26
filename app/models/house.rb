@@ -2,7 +2,12 @@
 
 class House < ApplicationRecord
 	def get_all
-		houses = JSON.load(RestClient.get(ENV["BACK_END_URL"] + "/houses"))
+		begin
+			houses = JSON.load(RestClient.get(ENV["BACK_END_URL"] + "/houses"))
+		rescue => e
+			houses = e.message
+		end
+
 		return houses
 	end
 

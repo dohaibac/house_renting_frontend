@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user["user"]["id"]
       session[:current_user] = @user["user"]
       
-      redirect_to houses_path, notice: 'User was successfully created.'
+      redirect_to houses_path, notice: 'Thank you for register.'
     else
       render :new
     end

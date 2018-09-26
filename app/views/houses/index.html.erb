@@ -1,7 +1,8 @@
 
 <table class="table table-bordered table-hover">
   <tbody>
-    <% @houses.each do |house|
+    <% 
+      @houses.each do |house|
        if house["user"]["display_name"] then 
             user_name = house["user"]["display_name"]
           else
